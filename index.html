@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tilt+Neon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shantell+Sans">
+    <link rel="shortcut icon" href="./img/PngItem_1711790.png" type="image/x-icon">
+    <title>Stopwatch</title>
+
+    <style>
+
+        @font-face {
+            font-family: 'digital';
+            src: url('./fonts/RADIOLAND.TTF');
+        }
+
+        body{
+            background-image: url('./img/nyck-de-vries-alphatauri-at04-1.webp');
+            width: 100vw;
+            height: 100vh;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            
+            
+        }
+
+        #maindiv{
+
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 100vw;
+            height: 100vh;
+
+        }
+
+        #time-body{
+
+            height: 100px;
+            width: 300px;
+            background-color: rgba(255, 25, 0, 0.8);
+            color: #ffffff;
+            border-radius: 25px;
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+            /* text-shadow: #000000 0px 0px 1px; */
+            
+            
+
+        }
+
+        .time-style{
+            -webkit-font-smoothing: antialiased;
+             
+             -webkit-text-stroke: #ffffff 1px;
+             -webkit-text-fill-color: transparent;
+        }
+
+        #stopwatch-body{
+            height: 300px;
+            width: 600px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            border-radius: 25px;
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+            margin-top: 100px;
+            /* padding: 20px; */
+        }
+
+        .digital-font{
+            font-family: 'digital';
+            font-size: 40px;
+            color: #ff0000;
+            text-shadow: #ff0000 0px 0px 5px;
+        }
+
+        #stopwatch-body input{
+
+            width: 120px;
+            height: 60px;
+            border-radius: 20px;
+            background-color: #fff000;
+            color: #000000;
+            border: #ffffff 2px solid;
+            font-weight: bold;
+            font-size: 20px;
+            font-family: 'Shantell Sans';
+
+        }
+
+        #stopwatch-body input:hover{
+
+            background-color: #ffffff;
+
+        }
+
+        #stopwatch-body input:focus{
+
+            background-color: #ff0000;
+            color: #ffffff;
+
+        }
+
+        .start-button-active{
+
+            background-color: #ff0000 !important;
+            color: #ffffff !important;
+
+        }
+        .start-button-active:hover{
+
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            cursor: not-allowed !important;
+
+        }
+        .stop-watch{
+            width: 13%;
+            display: inline-block !important;
+        }
+
+        .colon{
+            width: 10%;
+            display: inline-block !important;
+
+        }
+
+        .stopwatch-div{
+            width: 580px;
+        }
+        
+        .myfont{
+            font-family: 'Tilt Neon';
+        }
+
+    </style>
+
+    
+
+</head>
+<body>
+
+    <div id="maindiv" class="d-flex align-items-center justify-content-center flex-column">
+
+
+    <div id="time-body">
+
+        <span class="myfont"><strong> T I M E </strong></span>
+        <br>
+        <span id="time" class="time-style">00 : 00 : 00</span>
+
+
+        <script>
+
+            function updateTime(){
+            var myDate = new Date()
+            var myHour = myDate.getHours()
+            var myMin = myDate.getMinutes()
+            var mySec = myDate.getSeconds()
+            document.getElementById("time").innerHTML = myHour + " : " + myMin + " : " + mySec
+            }
+    
+            setInterval(updateTime, 1000);
+    
+        </script>
+
+    </div>
+    
+    <div id="stopwatch-body" class="d-flex align-items-center justify-content-center flex-column">
+
+        <div>
+            <div class="stopwatch-div">
+        <span id="s-hours" class="digital-font stop-watch">00</span>
+        <span class="colon digital-font">:</span>
+        <span id="s-minutes" class="digital-font stop-watch">00</span>
+        <span class="colon digital-font ">:</span>
+        <span id="s-seconds" class="digital-font stop-watch">00</span>
+        <span class="colon digital-font">:</span>
+        <span id="s-miliseconds" class="digital-font stop-watch">00</span>
+            </div>
+        <br>
+        <div class="m-5">
+        <input id="start" type="button" value="START" onclick="start()"> <input type="button" value="PAUSE" onclick="pause()"> <input type="button" value="RESET" onclick="reset()">
+        </div>
+
+    </div>
+    </div>
+
+    </div>
+
+
+    <script>
+
+        var hourElement = document.getElementById('s-hours');
+        var minuteElement = document.getElementById('s-minutes');
+        var secondsElement = document.getElementById('s-seconds');
+        var milisecondsElement = document.getElementById('s-miliseconds');
+
+        var $hour, $min, $sec, $milisec, $time;
+        $hour = 0;
+        $min = 0;
+        $sec = 0;
+        $milisec = 0;
+
+        function start(){
+
+            $time = setInterval(function(){
+
+                $milisec++
+                milisecondsElement.innerHTML = $milisec
+                if ($milisec < 10) {
+
+                milisecondsElement.innerHTML = "0" + $milisec
+                    
+                }
+                if($milisec >= 99){
+                    $sec ++
+                    secondsElement.innerHTML = $sec
+                    if ($sec < 10) {
+
+                        secondsElement.innerHTML = "0" + $sec
+                    
+                    }
+                    $milisec = 0
+
+                    if ($sec>=59) {
+                        $min++
+                        minuteElement.innerHTML = $min
+                        if ($min < 10) {
+
+                            minuteElement.innerHTML = "0" + $min
+                    
+                        }
+                        $sec = 0;
+                        
+                        if ($min>=59) {
+
+                            $hour++
+                            hourElement.innerHTML = $hour
+                            if ($hour < 10) {
+
+                                hourElement.innerHTML = "0" + $hour
+                    
+                            }
+                            $min = 0
+                            
+                        }
+                        
+                    }
+                }
+
+            },1)
+
+            document.getElementById('start').disabled = true
+            document.getElementById("start").className = 'start-button-active';
+
+        }
+
+        function pause(){
+
+            clearInterval($time);
+            document.getElementById('start').disabled = false
+            document.getElementById("start").className = '';
+
+
+
+        }
+
+        function reset(){
+
+            clearInterval($time);
+            $hour = 0;
+            $min = 0;
+            $sec = 0;
+            $milisec = 0;
+            hourElement.innerHTML = "00";
+            minuteElement.innerHTML  = "00";
+            secondsElement.innerHTML  = "00";
+            milisecondsElement.innerHTML  = "00";
+            document.getElementById('start').disabled = false
+            document.getElementById("start").className = '';
+
+
+        }
+
+
+
+
+    </script>
+
+    
+</body>
+</html>
